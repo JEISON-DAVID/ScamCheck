@@ -10,29 +10,30 @@ export default async function handler(req, res) {
     const { text } = req.body;
     if (!text) return res.status(400).json({ error: "No text" });
 
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": process.env.ANTHROPIC_API_KEY,
-        "anthropic-version": "2023-06-01",
+        "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
+        model: "llama-3.3-70b-versatile",
         max_tokens: 1000,
-        system: `Eres ScamCheck, experto en detección de estafas digitales. Responde ÚNICAMENTE con un objeto JSON válido sin backticks ni texto adicional con esta estructura: {"risk": <número 0-100>, "verdict": "<ESTAFA DETECTADA|POSIBLE ESTAFA|SOSPECHOSO|SEGURO>", "signals": ["señal1","señal2","señal3"], "recommendation": "<recomendación en español>", "type": "<tipo de estafa o Legítimo>"}`,
-        messages: [{ role: "user", content: `Analiza este mensaje: "${text}"` }],
+        messages: [
+          {
+            role: "system",
+            content: `Eres ScamCheck, experto en detección de estafas digitales. Responde ÚNICAMENTE con JSON válido sin backticks: {"risk": <0-100>, "verdict": "<ESTAFA DETECTADA|POSIBLE ESTAFA|SOSPECHOSO|SEGURO>", "signals": ["señal1","señal2","señal3"], "recommendation": "<recomendación>", "type": "<tipo>"}`
+          },
+          {
+            role: "user",
+            content: `Analiza este mensaje: "${text}"`
+          }
+        ],
       }),
     });
 
     const data = await response.json();
-
-    if (!response.ok) {
-      console.error("Anthropic error:", JSON.stringify(data));
-      return res.status(500).json({ error: "API error" });
-    }
-
-    const raw = data.content?.find((b) => b.type === "text")?.text || "";
+    const raw = data.choices?.[0]?.message?.content || "";
     const clean = raw.replace(/```json|```/g, "").trim();
     const parsed = JSON.parse(clean);
 
@@ -41,4 +42,4 @@ export default async function handler(req, res) {
     console.error("Error:", err.message);
     return res.status(500).json({ error: "Error interno" });
   }
-        }
+}
