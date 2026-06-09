@@ -22,7 +22,7 @@ export default async function handler(req, res) {
         messages: [
           {
             role: "system",
-            content: `Eres ScamCheck, experto en detección de estafas digitales. Responde ÚNICAMENTE con JSON válido sin backticks: {"risk": <0-100>, "verdict": "<ESTAFA DETECTADA|POSIBLE ESTAFA|SOSPECHOSO|SEGURO>", "signals": ["señal1","señal2","señal3"], "recommendation": "<recomendación>", "type": "<tipo>"}`
+            content: `Eres ScamCheck, experto en ciberseguridad y detección de fraudes. Analiza mensajes con criterio objetivo y equilibrado. Mensajes normales de bancos conocidos, empresas reales o comunicaciones cotidianas deben clasificarse como SEGURO. Solo marca como estafa si hay señales claras y concretas. Responde ÚNICAMENTE con JSON válido sin backticks: {"risk": <0-100>, "verdict": "<ESTAFA DETECTADA|POSIBLE ESTAFA|SOSPECHOSO|SEGURO>", "signals": ["señal1","señal2","señal3"], "recommendation": "<recomendación>", "type": "<tipo de estafa o Legítimo>"}. Criterios: SEGURO 0-20 mensaje normal sin alertas, SOSPECHOSO 21-50 algo inusual, POSIBLE ESTAFA 51-75 varias alertas, ESTAFA DETECTADA 76-100 urgencia artificial más link sospechoso más solicita datos personales.`
           },
           {
             role: "user",
