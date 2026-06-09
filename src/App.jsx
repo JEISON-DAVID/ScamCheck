@@ -191,30 +191,16 @@ export default function ScamCheck() {
     setShared(false);
 
     try {
-      const resp = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: CLAUDE_MODEL,
-          max_tokens: 1000,
-          system: `Eres ScamCheck, un experto en detección de estafas digitales. Analiza el mensaje proporcionado y responde ÚNICAMENTE con un objeto JSON válido (sin backticks, sin markdown, sin texto adicional) con esta estructura exacta:
-{
-  "risk": <número 0-100>,
-  "verdict": "<ESTAFA DETECTADA | POSIBLE ESTAFA | SOSPECHOSO | SEGURO>",
-  "signals": ["señal1", "señal2", "señal3"],
-  "recommendation": "<texto de recomendación en español>",
-  "type": "<tipo de estafa o 'Legítimo'>"
-}`,
-          messages: [{ role: "user", content: `Analiza este mensaje: "${text}"` }],
-        }),
-      });
+      const resp = await fetch("/api/analyze", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ text }),
+});
 
-      if (!resp.ok) throw new Error("Error de API");
-      const data = await resp.json();
-      const raw = data.content?.find(b => b.type === "text")?.text || "";
-      const clean = raw.replace(/```json|```/g, "").trim();
-      const parsed = JSON.parse(clean);
-      setResult(parsed);
+if (!resp.ok) throw new Error("Error de API");
+const parsed = await resp.json();
+setResult(parsed);
+      
     } catch (e) {
       setError("No se pudo analizar el mensaje. Intenta de nuevo.");
     } finally {
