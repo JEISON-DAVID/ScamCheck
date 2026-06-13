@@ -292,14 +292,14 @@ function DonationSection({ dark, muted, card }) {
             tab === "qr"
               ? "bg-blue-600 text-white shadow-sm"
               : muted)}>
-          📱 Escanear QR
+           Escanear QR
         </button>
         <button onClick={() => setTab("key")}
           className={cn("flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all",
             tab === "key"
               ? "bg-blue-600 text-white shadow-sm"
               : muted)}>
-          🔑 Llave Nequi
+           Llave Nequi
         </button>
       </div>
 
@@ -317,7 +317,7 @@ function DonationSection({ dark, muted, card }) {
           </div>
           <div className="mt-4 space-y-1">
             <p className="font-bold text-base">Scamcheck</p>
-            <p className={cn("text-sm", muted)}>Roymer Diaz</p>
+            <p className={cn("text-sm", muted)}></p>
           </div>
         </div>
       ) : (
@@ -332,7 +332,7 @@ function DonationSection({ dark, muted, card }) {
             <span className="text-3xl font-black tracking-wider text-blue-500">
               {NEQUI_KEY}
             </span>
-            <p className={cn("text-xs mt-2", muted)}>Scamcheck · Roymer Diaz</p>
+            <p className={cn("text-xs mt-2", muted)}>Scamcheck · </p>
           </div>
           <button onClick={copyKey}
             className={cn("w-full py-3 rounded-2xl font-bold text-sm transition-all active:scale-95",
