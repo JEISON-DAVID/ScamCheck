@@ -337,7 +337,7 @@ function DonationSection({ dark, muted, card }) {
           <button onClick={copyKey}
             className={cn("w-full py-3 rounded-2xl font-bold text-sm transition-all active:scale-95",
               copied ? "bg-emerald-500 text-white" : "bg-blue-600 text-white hover:bg-blue-500")}>
-            {copied ? "✓ ¡Copiado!" : "📋 Copiar llave"}
+            {copied ? "✓ ¡Copiado!" : " Copiar llave"}
           </button>
         </div>
       )}
