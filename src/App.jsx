@@ -737,7 +737,7 @@ export default function ScamCheck() {
           <div className="text-center mb-12">
             <div className={cn("inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full border mb-4",
               dark ? "bg-blue-600/10 border-blue-600/30 text-blue-400" : "bg-blue-50 border-blue-200 text-blue-600")}>
-              ❤️ 100% Gratuito
+               100% Gratuito
             </div>
             <h2 className="text-3xl sm:text-4xl font-black mb-4">Apoya el proyecto</h2>
             <p className={cn("text-base leading-relaxed max-w-lg mx-auto", muted)}>
@@ -752,7 +752,7 @@ export default function ScamCheck() {
                 <Shield className="w-6 h-6 text-white"/>
               </div>
               <h3 className="text-white font-black text-xl">Donar con Nequi</h3>
-              <p className="text-blue-200 text-sm mt-1">Scamcheck · Roymer Diaz</p>
+              <p className="text-blue-200 text-sm mt-1">Scamcheck ·</p>
             </div>
 
             <DonationSection dark={dark} muted={muted} card={card}/>
